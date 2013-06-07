@@ -10,7 +10,7 @@ class HangmanRunner
 	    puts "Chances: #{@game.chances}\n\n" 
 	    print "Take your best shot! Enter guess: "
 	    letter = gets.chomp
-	    @game.add_to_guesses(letter)
+	    @game.guess(letter)
 
 	    if @game.win?
 	    	puts "\n\nCongratulations! You won!\n"

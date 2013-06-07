@@ -9,19 +9,20 @@ class Hangman
     @board   = draw_board(@word)
   end
   
-  def add_to_guesses(letter)
-    # @guesses.push letter    
+  # return @guesses as a string
+  def guesses
+    @guesses
   end
 
   
   def draw_board(word)
-    @board = ' _ ' * @word.length
+    @board = '_' * @word.length
   end
 
   # return true if word has letter
   def word_has?(letter)
     return true if @word.include? letter
-    put_letter_on_board(letter)
+    # put_letter_on_board(letter)
   end
 
   # replace indexes of @board with letter where the same indexes of @word are letter
@@ -29,12 +30,17 @@ class Hangman
   # and the letter guessed is a
   # then @board should become _ a _ a _ a
   def put_letter_on_board(letter)
-    
+    @word.split('').each_with_index do |element, index|
+      if letter == element
+        @board[index] = letter
+      end
+    end
   end
 
   # decrement # of chances and add letter to guesses
   def wrong_letter(letter)
     @chances = @chances - 1
+    @guesses << letter
   end
   
   # if the word has the given letter, put it on the board, otherwise, it's a wrong guess
@@ -48,7 +54,7 @@ class Hangman
 
   # return true if @board doesn't have a '_', otherwise return false
   def win?
-    return false if @board != ' _ '
+    !@board.include? '_'
   end
 
   # return true if @chances is 0, otherwise return false
